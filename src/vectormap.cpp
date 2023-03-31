@@ -6,7 +6,6 @@
 #include <tinyxml2.h>
 
 Object::Object(tinyxml2::XMLElement* element,std::map<std::string, std::string>* uniqueKeyMapPtr){
-    uid=std::stoul(element->Attribute("id"));
     objectType=element->Name();
     for(tinyxml2::XMLElement* tag=element->FirstChildElement("tag");tag!=nullptr;tag=tag->NextSiblingElement("tag")){
             if(uniqueKeyMapPtr->find(tag->Attribute("k"))!=uniqueKeyMapPtr->end()){
@@ -27,10 +26,8 @@ Object::Object(tinyxml2::XMLElement* element,std::map<std::string, std::string>*
 }
 
 Object* VectorMap::getObjectByID(unsigned long int uid){
-    for(auto& object:objects){
-        if(object.uid==uid)return &object;
-    }
-    return nullptr;
+    if (objects.find(uid)==objects.end())return nullptr;
+    return &objects[uid];
 }
 
 VectorMap::VectorMap(std::string file,std::map<std::string, std::string>* uniqueKeyMapPtr,std::map<std::string, Color>* colorProfilePtr,Color defCol){
@@ -59,7 +56,7 @@ VectorMap::VectorMap(std::string file,std::map<std::string, std::string>* unique
                 if(nodePointer!=nullptr) object.nodes[i++]=nodePointer;
             }
         }
-        objects.push_back(object);
+        objects[std::stoul(currentElement->Attribute("id"))]=object;
         if(object.objectType=="relation"){
             for(tinyxml2::XMLElement* member=currentElement->FirstChildElement("member");member!=nullptr;member=member->NextSiblingElement("member")){
                 Object* memberPointer=getObjectByID(std::stoul(member->Attribute("ref")));

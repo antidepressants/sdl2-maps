@@ -92,7 +92,6 @@ void Grid::visualizeGrid(SDL_Renderer* renderer,double scale,int xoffset,int yof
             rect.h=(scale<1)?1:scale;
             rect.w=(scale<1)?1:scale;
             SDL_RenderFillRect(renderer, &rect);
-            //SDL_RenderDrawRect(renderer, &rect);
         }
     }
 }
@@ -125,15 +124,15 @@ void Grid::drawMap(SDL_Renderer* renderer, VectorMap* vMap, double scale,int xof
 
         auto *colorMap=vMap->colorProfile;
 
-        if(colorMap->find(object.dataType)!=colorMap->end()){
-            color.r=(*colorMap)[object.dataType].r;
-            color.g=(*colorMap)[object.dataType].g;
-            color.b=(*colorMap)[object.dataType].b;
-            color.a=(*colorMap)[object.dataType].a;
+        if(colorMap->find(object.second.dataType)!=colorMap->end()){
+            color.r=(*colorMap)[object.second.dataType].r;
+            color.g=(*colorMap)[object.second.dataType].g;
+            color.b=(*colorMap)[object.second.dataType].b;
+            color.a=(*colorMap)[object.second.dataType].a;
         }else continue;
 
         SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
-        if(object.objectType=="node") drawRectAtCoordinate(renderer, scale, object.x, object.y, object.x, object.y,xoffset,yoffset);
-        if(object.objectType=="way") drawPath(renderer, scale, object,xoffset,yoffset);
+        if(object.second.objectType=="node") drawRectAtCoordinate(renderer, scale, object.second.x, object.second.y, object.second.x, object.second.y,xoffset,yoffset);
+        if(object.second.objectType=="way") drawPath(renderer, scale, object.second,xoffset,yoffset);
     }
 }

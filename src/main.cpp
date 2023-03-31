@@ -40,16 +40,15 @@ int main(){
 
     uniqueKeyMap["city"]="city";
 
-    vectorMapColors["road"]={255,0,200,255};
+    vectorMapColors["road"]={0,0,0,255};
     vectorMapColors["heavy_vegetation"]={0,255,0,255};
-    vectorMapColors["building"]={200,0,255,255};
+    vectorMapColors["building"]={150,140,130,255};
     vectorMapColors["brownfield"]=vectorMapColors["cemetery"]={115,50,0,255};
     vectorMapColors["power"]={255,0,0,255};
     vectorMapColors["water"]={180,230,255,255};
     vectorMapColors["light_vegetation"]={150,255,150,255};
     vectorMapColors["breakwater"]=vectorMapColors["barrier"]={150,150,150,255};
     vectorMapColors["industrial"]={200,200,200,255};
-    vectorMapColors["boundary"]=vectorMapColors["city"]={0,0,0,255};
 
     rasterGridMap[-10400]={50,150,255,255};
     rasterGridMap[-5001]={50,150,255,255};
@@ -102,19 +101,21 @@ int main(){
     rasterGridMap[5671]={40,40,40,255};
     rasterGridMap[6678]={40,40,40,255};
 
-    // VectorMap vMap1("data/beirut.osm",&uniqueKeyMap,&vectorMapColors);
-    // VectorMap vMap2("data/haret_hreik.osm",&uniqueKeyMap,&vectorMapColors);
+    VectorMap vMap1("data/beirut.osm",&uniqueKeyMap,&vectorMapColors);
+    VectorMap vMap2("data/haret_hreik.osm",&uniqueKeyMap,&vectorMapColors);
     VectorMap vMap3("data/tayouneh.osm",&uniqueKeyMap,&vectorMapColors);
     //tayouneh.asc
-    // VectorMap vMap4("data/port.osm",&uniqueKeyMap,&vectorMapColors);
-    // VectorMap vMap5("data/beirut2.osm",&uniqueKeyMap,&vectorMapColors);
-    // VectorMap vMap6("data/beirut3.osm",&uniqueKeyMap,&vectorMapColors);
+    VectorMap vMap4("data/port.osm",&uniqueKeyMap,&vectorMapColors);
+    VectorMap vMap5("data/beirut2.osm",&uniqueKeyMap,&vectorMapColors);
+    VectorMap vMap6("data/beirut3.osm",&uniqueKeyMap,&vectorMapColors);
     //beirut.asc
 
     // VectorMap vMap7("data/baabda.osm",&uniqueKeyMap,&vectorMapColors);
     //baabda.asc
 
     // VectorMap vMap8("data/aita_al_shaab.osm",&uniqueKeyMap,&vectorMapColors);
+    //aita_al_shaab.asc
+
     // VectorMap vMap9("data/jabal_hmeid.osm",&uniqueKeyMap,&vectorMapColors);
     //jabal_hmeid.asc
 
@@ -129,11 +130,11 @@ int main(){
 
     // VectorMap vMaps[]={};
 
-    VectorMap* vMaps[]={&vMap3};
+    VectorMap* vMaps[]={&vMap1,&vMap2,&vMap1,&vMap4,&vMap5,&vMap6};
 
     size_t count=sizeof(vMaps)/sizeof(VectorMap*);
 
-    Grid grid("data/tayouneh.asc",&rasterGridMap);
+    Grid grid("data/beirut.asc",&rasterGridMap);
     Game* game=new Game("Game",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,1920,1080,0);
     while(game->running()){
         game->handleEvents();
