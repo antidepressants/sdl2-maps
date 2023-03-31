@@ -4,12 +4,13 @@
 #include <SDL2/SDL_video.h>
 #include <iostream>
 #include <map>
+#include <unordered_map>
 
 int main(){
     
-    std::map<std::string, Color> vectorMapColors;
+    std::unordered_map<std::string, Color> vectorMapColors;
     std::map<double, Color> rasterGridMap;
-    std::map<std::string,std::string> uniqueKeyMap;
+    std::unordered_map<std::string,std::string> uniqueKeyMap;
     
     uniqueKeyMap["highway"]=uniqueKeyMap["railway"]=uniqueKeyMap["bridge"]=uniqueKeyMap["tunnel"]=
     uniqueKeyMap["footway"]=uniqueKeyMap["route"]=uniqueKeyMap["street"]="road";
@@ -130,7 +131,7 @@ int main(){
 
     // VectorMap vMaps[]={};
 
-    VectorMap* vMaps[]={&vMap1,&vMap2,&vMap1,&vMap4,&vMap5,&vMap6};
+    VectorMap* vMaps[]={&vMap1,&vMap2,&vMap3,&vMap4,&vMap5,&vMap6};
 
     size_t count=sizeof(vMaps)/sizeof(VectorMap*);
 

@@ -4,8 +4,9 @@
 #include <map>
 #include <string>
 #include <tinyxml2.h>
+#include <unordered_map>
 
-Object::Object(tinyxml2::XMLElement* element,std::map<std::string, std::string>* uniqueKeyMapPtr){
+Object::Object(tinyxml2::XMLElement* element,std::unordered_map<std::string, std::string>* uniqueKeyMapPtr){
     objectType=element->Name();
     for(tinyxml2::XMLElement* tag=element->FirstChildElement("tag");tag!=nullptr;tag=tag->NextSiblingElement("tag")){
             if(uniqueKeyMapPtr->find(tag->Attribute("k"))!=uniqueKeyMapPtr->end()){
@@ -30,7 +31,7 @@ Object* VectorMap::getObjectByID(unsigned long int uid){
     return &objects[uid];
 }
 
-VectorMap::VectorMap(std::string file,std::map<std::string, std::string>* uniqueKeyMapPtr,std::map<std::string, Color>* colorProfilePtr,Color defCol){
+VectorMap::VectorMap(std::string file,std::unordered_map<std::string, std::string>* uniqueKeyMapPtr,std::unordered_map<std::string, Color>* colorProfilePtr,Color defCol){
     colorProfile=colorProfilePtr;
     defaultColor=defCol;
     tinyxml2::XMLDocument document;
