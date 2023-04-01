@@ -38,13 +38,14 @@ VectorMap::VectorMap(std::string file,std::unordered_map<std::string, std::strin
     tinyxml2::XMLError eResult=document.LoadFile(file.c_str());
     tinyxml2::XMLNode* root=document.RootElement();
     for(tinyxml2::XMLElement* currentElement=root->FirstChildElement();currentElement!=nullptr;currentElement=currentElement->NextSiblingElement()){
-        if(!std::strcmp(currentElement->Name(),"bounds")){
+        std::string name=currentElement->Name();
+        if(name=="bounds"){
             minX=std::stol(currentElement->Attribute("minlon"));
             minY=std::stol(currentElement->Attribute("minlat"));
             maxX=std::stol(currentElement->Attribute("maxlon"));
             maxY=std::stol(currentElement->Attribute("maxlat"));
             continue;
-        }else if(std::strcmp(currentElement->Name(), "node") and std::strcmp(currentElement->Name(), "way") and std::strcmp(currentElement->Name(), "relation"))continue;
+        }else if(name!="node" and name!="way" and name!="relation")continue;
         Object object(currentElement,uniqueKeyMapPtr);
         if(object.objectType=="way"){
             size_t i=0;
