@@ -102,40 +102,35 @@ int main(){
     rasterGridMap[5671]={40,40,40,255};
     rasterGridMap[6678]={40,40,40,255};
 
-    // VectorMap vMap1("data/beirut.osm",&uniqueKeyMap,&vectorMapColors);
-    // VectorMap vMap2("data/haret_hreik.osm",&uniqueKeyMap,&vectorMapColors);
-    // VectorMap vMap3("data/tayouneh.osm",&uniqueKeyMap,&vectorMapColors);
-    //tayouneh.asc
-    // VectorMap vMap4("data/port.osm",&uniqueKeyMap,&vectorMapColors);
-    // VectorMap vMap5("data/beirut2.osm",&uniqueKeyMap,&vectorMapColors);
-    // VectorMap vMap6("data/beirut3.osm",&uniqueKeyMap,&vectorMapColors);
+    VectorMap vMap1("data/northbeirut.osm",&uniqueKeyMap,&vectorMapColors);
+    VectorMap vMap2("data/southbeirut.osm",&uniqueKeyMap,&vectorMapColors);
     //beirut.asc
+    //tayouneh.asc
+    //haret_hreik.asc
 
-    // VectorMap vMap7("data/baabda.osm",&uniqueKeyMap,&vectorMapColors);
+    // VectorMap vMap3("data/baabda.osm",&uniqueKeyMap,&vectorMapColors);
     //baabda.asc
 
-    // VectorMap vMap8("data/aita_al_shaab.osm",&uniqueKeyMap,&vectorMapColors);
+    // VectorMap vMap4("data/aita_al_shaab.osm",&uniqueKeyMap,&vectorMapColors);
     //aita_al_shaab.asc
 
-    // VectorMap vMap9("data/jabal_hmeid.osm",&uniqueKeyMap,&vectorMapColors);
+    // VectorMap vMap5("data/jabal_hmeid.osm",&uniqueKeyMap,&vectorMapColors);
     //jabal_hmeid.asc
 
-    // VectorMap vMap10("data/beirutblock.osm",&uniqueKeyMap,&vectorMapColors);
+    // VectorMap vMap6("data/beirutblock.osm",&uniqueKeyMap,&vectorMapColors);
     //beirut2.asc
 
-    // VectorMap vMap11("data/idlib_outskirts.osm",&uniqueKeyMap,&vectorMapColors);
+    // VectorMap vMap7("data/idlib_outskirts.osm",&uniqueKeyMap,&vectorMapColors);
     //idlib_outskirts.asc
 
     // VectorMap vMap12("data/trafford_park.osm",&uniqueKeyMap,&vectorMapColors);
     //trafford_park.asc
 
-    VectorMap vMap14("data/damascus.osm",&uniqueKeyMap,&vectorMapColors);
-
-    VectorMap* vMaps[]={&vMap14};
+    VectorMap* vMaps[]={&vMap1,&vMap2};
 
     size_t count=sizeof(vMaps)/sizeof(VectorMap*);
 
-    Grid grid("data/damascus.asc",&rasterGridMap);
+    Grid grid("data/beirut.asc",&rasterGridMap);
     Game* game=new Game("Game",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,1920,1080,0);
     while(game->running()){
         game->handleEvents();
