@@ -108,6 +108,10 @@ void Grid::drawRectAtCoordinate(SDL_Renderer* renderer,double scale,double minX,
 void Grid::drawPath(SDL_Renderer* renderer, double scale, Object object,int xoffset,int yoffset){
     SDL_Point* points=new SDL_Point[object.nodeNum];
     for(size_t i=0;i<object.nodeNum;i++){
+        if(object.nodes[i]==nullptr){
+            i--;
+            continue;
+        }
         points[i]={int(((object.nodes[i]->x-xllcorner)/cellsize)*scale)+xoffset,int(((yurcorner-object.nodes[i]->y)/cellsize)*scale)+yoffset};
     }
     SDL_RenderDrawLines(renderer, points, object.nodeNum);

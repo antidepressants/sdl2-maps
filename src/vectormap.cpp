@@ -37,7 +37,6 @@ VectorMap::VectorMap(std::string file,std::unordered_map<std::string, std::strin
     tinyxml2::XMLDocument document;
     tinyxml2::XMLError eResult=document.LoadFile(file.c_str());
     tinyxml2::XMLNode* root=document.RootElement();
-    tinyxml2::XMLElement* currentElement=root->FirstChildElement();
     for(tinyxml2::XMLElement* currentElement=root->FirstChildElement();currentElement!=nullptr;currentElement=currentElement->NextSiblingElement()){
         if(!std::strcmp(currentElement->Name(),"bounds")){
             minX=std::stol(currentElement->Attribute("minlon"));
@@ -45,16 +44,14 @@ VectorMap::VectorMap(std::string file,std::unordered_map<std::string, std::strin
             maxX=std::stol(currentElement->Attribute("maxlon"));
             maxY=std::stol(currentElement->Attribute("maxlat"));
             continue;
-        }
-    }
-    while(currentElement->NextSiblingElement()!=nullptr){
-        currentElement=currentElement->NextSiblingElement();
+        }else if(std::strcmp(currentElement->Name(), "node") and std::strcmp(currentElement->Name(), "way") and std::strcmp(currentElement->Name(), "relation"))continue;
         Object object(currentElement,uniqueKeyMapPtr);
         if(object.objectType=="way"){
             size_t i=0;
             for(tinyxml2::XMLElement* node=currentElement->FirstChildElement("nd");node!=nullptr;node=node->NextSiblingElement("nd")){
                 Object* nodePointer=getObjectByID(std::stoul(node->Attribute("ref")));
-                if(nodePointer!=nullptr) object.nodes[i++]=nodePointer;
+                if(nodePointer==nullptr)object.nodeNum--;
+                object.nodes[i++]=nodePointer;
             }
         }
         objects[std::stoul(currentElement->Attribute("id"))]=object;

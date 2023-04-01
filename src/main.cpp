@@ -102,13 +102,13 @@ int main(){
     rasterGridMap[5671]={40,40,40,255};
     rasterGridMap[6678]={40,40,40,255};
 
-    VectorMap vMap1("data/beirut.osm",&uniqueKeyMap,&vectorMapColors);
-    VectorMap vMap2("data/haret_hreik.osm",&uniqueKeyMap,&vectorMapColors);
-    VectorMap vMap3("data/tayouneh.osm",&uniqueKeyMap,&vectorMapColors);
+    // VectorMap vMap1("data/beirut.osm",&uniqueKeyMap,&vectorMapColors);
+    // VectorMap vMap2("data/haret_hreik.osm",&uniqueKeyMap,&vectorMapColors);
+    // VectorMap vMap3("data/tayouneh.osm",&uniqueKeyMap,&vectorMapColors);
     //tayouneh.asc
-    VectorMap vMap4("data/port.osm",&uniqueKeyMap,&vectorMapColors);
-    VectorMap vMap5("data/beirut2.osm",&uniqueKeyMap,&vectorMapColors);
-    VectorMap vMap6("data/beirut3.osm",&uniqueKeyMap,&vectorMapColors);
+    // VectorMap vMap4("data/port.osm",&uniqueKeyMap,&vectorMapColors);
+    // VectorMap vMap5("data/beirut2.osm",&uniqueKeyMap,&vectorMapColors);
+    // VectorMap vMap6("data/beirut3.osm",&uniqueKeyMap,&vectorMapColors);
     //beirut.asc
 
     // VectorMap vMap7("data/baabda.osm",&uniqueKeyMap,&vectorMapColors);
@@ -129,13 +129,13 @@ int main(){
     // VectorMap vMap12("data/trafford_park.osm",&uniqueKeyMap,&vectorMapColors);
     //trafford_park.asc
 
-    // VectorMap vMaps[]={};
+    VectorMap vMap14("data/damascus.osm",&uniqueKeyMap,&vectorMapColors);
 
-    VectorMap* vMaps[]={&vMap1,&vMap2,&vMap3,&vMap4,&vMap5,&vMap6};
+    VectorMap* vMaps[]={&vMap14};
 
     size_t count=sizeof(vMaps)/sizeof(VectorMap*);
 
-    Grid grid("data/beirut.asc",&rasterGridMap);
+    Grid grid("data/damascus.asc",&rasterGridMap);
     Game* game=new Game("Game",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,1920,1080,0);
     while(game->running()){
         game->handleEvents();
