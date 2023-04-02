@@ -11,11 +11,9 @@ Object::Object(tinyxml2::XMLElement* element,std::unordered_map<std::string, std
     for(tinyxml2::XMLElement* tag=element->FirstChildElement("tag");tag!=nullptr;tag=tag->NextSiblingElement("tag")){
             if(uniqueKeyMapPtr->find(tag->Attribute("k"))!=uniqueKeyMapPtr->end()){
                 dataType=(*uniqueKeyMapPtr)[tag->Attribute("k")];
-                break;
             }
-            else if(uniqueKeyMapPtr->find(tag->Attribute("v"))!=uniqueKeyMapPtr->end()){
+            if(uniqueKeyMapPtr->find(tag->Attribute("v"))!=uniqueKeyMapPtr->end()){
                 dataType=(*uniqueKeyMapPtr)[tag->Attribute("v")];
-                break;
             }
     }
     for(tinyxml2::XMLElement* node=element->FirstChildElement("nd");node!=nullptr;node=node->NextSiblingElement("nd"))nodeNum++;
@@ -51,7 +49,10 @@ VectorMap::VectorMap(std::string file,std::unordered_map<std::string, std::strin
             size_t i=0;
             for(tinyxml2::XMLElement* node=currentElement->FirstChildElement("nd");node!=nullptr;node=node->NextSiblingElement("nd")){
                 Object* nodePointer=getObjectByID(std::stoul(node->Attribute("ref")));
-                if(nodePointer==nullptr)object.nodeNum--;
+                if(nodePointer==nullptr){
+                    object.nodeNum--;
+                    continue;
+                }
                 object.nodes[i++]=nodePointer;
             }
         }

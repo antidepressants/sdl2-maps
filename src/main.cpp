@@ -9,29 +9,37 @@
 int main(){
     
     std::unordered_map<std::string, Color> vectorMapColors;
+    std::unordered_map<std::string, Color> theatreLevel;
     std::map<double, Color> rasterGridMap;
     std::unordered_map<std::string,std::string> uniqueKeyMap;
     
-    uniqueKeyMap["highway"]=uniqueKeyMap["railway"]=uniqueKeyMap["bridge"]=uniqueKeyMap["tunnel"]=
-    uniqueKeyMap["footway"]=uniqueKeyMap["route"]=uniqueKeyMap["street"]="road";
+    uniqueKeyMap["primary"]=uniqueKeyMap["trunk"]=uniqueKeyMap["secondary"]=uniqueKeyMap["motorway"]=uniqueKeyMap["route"]=
+    uniqueKeyMap["bridge"]=uniqueKeyMap["tunnel"]="major_road";
+    uniqueKeyMap["railway"]="railway";
+    uniqueKeyMap["footway"]=uniqueKeyMap["street"]=uniqueKeyMap["residential"]=uniqueKeyMap["service"]=
+    uniqueKeyMap["unclassified"]=uniqueKeyMap["track"]="minor_road";
 
     uniqueKeyMap["building"]=uniqueKeyMap["amenity"]=uniqueKeyMap["shop"]=uniqueKeyMap["leisure"]=
     uniqueKeyMap["parking_space"]=uniqueKeyMap["office"]="building";
 
     uniqueKeyMap["power"]=uniqueKeyMap["gasometer"]=uniqueKeyMap["storage_tank"]="power";
 
+    uniqueKeyMap["aeroway"]="airway";
+
+    uniqueKeyMap["port"]=uniqueKeyMap["harbour"]="port";
+
     uniqueKeyMap["barrier"]="barrier";
 
     uniqueKeyMap["breakwater"]="breakwater";
 
-    uniqueKeyMap["waterway"]=uniqueKeyMap["river"]=uniqueKeyMap["water"]="water";
+    uniqueKeyMap["waterway"]=uniqueKeyMap["river"]=uniqueKeyMap["water"]=uniqueKeyMap["wetland"]=uniqueKeyMap["spring"]="water";
 
-    uniqueKeyMap["industrial"]=uniqueKeyMap["crane"]="industrial";
+    uniqueKeyMap["industrial"]=uniqueKeyMap["crane"]=uniqueKeyMap["quarry"]=uniqueKeyMap["works"]="industrial";
 
     uniqueKeyMap["tree"]=uniqueKeyMap["scrub"]=uniqueKeyMap["tree_row"]=uniqueKeyMap["wood"]=
     uniqueKeyMap["village_green"]=uniqueKeyMap["forest"]="heavy_vegetation";
 
-    uniqueKeyMap["grass"]=uniqueKeyMap["farmyard"]=uniqueKeyMap["greenfield"]="light_vegetation";
+    uniqueKeyMap["grass"]=uniqueKeyMap["farmyard"]=uniqueKeyMap["greenfield"]=uniqueKeyMap["orchard"]="light_vegetation";
 
     uniqueKeyMap["brownfield"]="brownfield";
 
@@ -41,8 +49,12 @@ int main(){
 
     uniqueKeyMap["city"]="city";
 
-    vectorMapColors["road"]={0,0,0,255};
-    vectorMapColors["heavy_vegetation"]={0,255,0,255};
+    uniqueKeyMap["village"]="village";
+
+    vectorMapColors["major_road"]={130,0,40,255};
+    vectorMapColors["minor_road"]={255,230,150,255};
+    vectorMapColors["railway"]={110,0,140,255};
+    vectorMapColors["heavy_vegetation"]={100,210,100,255};
     vectorMapColors["building"]={150,140,130,255};
     vectorMapColors["brownfield"]=vectorMapColors["cemetery"]={115,50,0,255};
     vectorMapColors["power"]={255,0,0,255};
@@ -50,6 +62,20 @@ int main(){
     vectorMapColors["light_vegetation"]={150,255,150,255};
     vectorMapColors["breakwater"]=vectorMapColors["barrier"]={150,150,150,255};
     vectorMapColors["industrial"]={200,200,200,255};
+    vectorMapColors["boundary"]={0,0,0,255};
+    vectorMapColors["airway"]={225,150,0,255};
+    vectorMapColors["port"]={0,0,255,255};
+
+    theatreLevel["major_road"]={130,0,40,255};
+    theatreLevel["railway"]={110,0,140,255};
+    theatreLevel["power"]={255,0,0,255};
+    theatreLevel["water"]={180,230,255,255};
+    theatreLevel["industrial"]={200,200,200,255};
+    theatreLevel["airway"]={225,150,0,255};
+    theatreLevel["port"]={0,0,255,255};
+    theatreLevel["city"]={0,0,0,255};
+    theatreLevel["village"]={0,0,0,255};
+
 
     rasterGridMap[-10400]={50,150,255,255};
     rasterGridMap[-5001]={50,150,255,255};
@@ -102,8 +128,8 @@ int main(){
     rasterGridMap[5671]={40,40,40,255};
     rasterGridMap[6678]={40,40,40,255};
 
-    VectorMap vMap1("data/northbeirut.osm",&uniqueKeyMap,&vectorMapColors);
-    VectorMap vMap2("data/southbeirut.osm",&uniqueKeyMap,&vectorMapColors);
+    VectorMap vMap1("data/northbeirut.osm",&uniqueKeyMap,&theatreLevel);
+    VectorMap vMap2("data/southbeirut.osm",&uniqueKeyMap,&theatreLevel);
     //beirut.asc
     //tayouneh.asc
     //haret_hreik.asc
@@ -117,14 +143,13 @@ int main(){
     // VectorMap vMap5("data/jabal_hmeid.osm",&uniqueKeyMap,&vectorMapColors);
     //jabal_hmeid.asc
 
-    // VectorMap vMap6("data/beirutblock.osm",&uniqueKeyMap,&vectorMapColors);
-    //beirut2.asc
-
-    // VectorMap vMap7("data/idlib_outskirts.osm",&uniqueKeyMap,&vectorMapColors);
+    // VectorMap vMap6("data/idlib_outskirts.osm",&uniqueKeyMap,&vectorMapColors);
     //idlib_outskirts.asc
 
-    // VectorMap vMap12("data/trafford_park.osm",&uniqueKeyMap,&vectorMapColors);
+    // VectorMap vMap7("data/trafford_park.osm",&uniqueKeyMap,&vectorMapColors);
     //trafford_park.asc
+
+    // VectorMap vMap8("data/lebanon.osm",&uniqueKeyMap,&theatreLevel); //big file
 
     VectorMap* vMaps[]={&vMap1,&vMap2};
 
@@ -135,7 +160,7 @@ int main(){
     while(game->running()){
         game->handleEvents();
         game->update();
-        game->render(&grid,vMaps,count,1000,800);
+        game->render(&grid,vMaps,count,1000,1000);
     }
     game->clean();
     return 0;
