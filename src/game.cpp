@@ -79,7 +79,8 @@ void Game::render(Grid* grid,VectorMap** vMap,size_t count,int width,int height,
 
     left.y=right.y=0;
 
-    left.w=right.w=xoffset;
+    left.w=xoffset;
+    right.w=windowWidth;
 
     left.h=right.h=windowHeight;
 
@@ -90,7 +91,8 @@ void Game::render(Grid* grid,VectorMap** vMap,size_t count,int width,int height,
 
     top.w=bottom.w=windowWidth;
 
-    top.h=bottom.h=yoffset;
+    top.h=yoffset;
+    bottom.h=windowHeight;
 
     SDL_RenderFillRect(renderer, &left);
     SDL_RenderFillRect(renderer, &right);

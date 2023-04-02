@@ -160,7 +160,7 @@ int main(){
     while(game->running()){
         game->handleEvents();
         game->update();
-        game->render(&grid,vMaps,count,1000,1000);
+        game->render(&grid,vMaps,count,1000,1000,1,1);
     }
     game->clean();
     return 0;
